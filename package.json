@@ -1,0 +1,25 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joontae98/Node.js-Test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joontae98/Node.js-Test/issues"
+  },
+  "homepage": "https://github.com/joontae98/Node.js-Test#readme",
+  "dependencies": {
+    "sanitize-html": "^2.3.0"
+  }
+}
