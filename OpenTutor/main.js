@@ -6,9 +6,9 @@ var path = require('path')
 var template = require('./lib/template')
 var qs = require('querystring')
 var sanitizeHtml = require('sanitize-html')
-// var bodyParser = require('body-parser')
+var bodyParser = require('body-parser')
 
-// app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({extended: false}))
 
 // request -> 불러올때, response -> 내보낼 때
 
@@ -75,19 +75,11 @@ app.get('/create', (req, res) => {
 })
 
 app.post('/create_process', (req, res) => {
-    var body = ''
-    req.on('data', (data) => {
-        body += data
-    })
-    req.on('end', () => {
-        var post = qs.parse(body)
-        var title = post.title
-        var description = post.description
-        fs.writeFile(`./data/${title}`, description, 'utf8', (err) => {
-            res.redirect(`/page/${title}`)
-            // res.writeHead(302, {Location: `/page/${title}`})
-            // res.end()
-        })
+    var post = req.body
+    var title = post.title
+    var description = post.description
+    fs.writeFile(`./data/${title}`, description, 'utf8', (err) => {
+        res.redirect(`/page/${title}`)
     })
 })
 
@@ -120,39 +112,23 @@ app.get('/update/:pageId', (req, res) => {
 })
 
 app.post('/update_process', (req, res) => {
-    var body = ''
-    req.on('data', (data) => {
-        body += data
-    })
-    req.on('end', () => {
-        var post = qs.parse(body)
-        var id = post.id
-        var title = post.title
-        var description = post.description
-        fs.rename(`./data/${id}`, `./data/${title}`, (err) => {
-            fs.writeFile(`./data/${title}`, description, 'utf8', (err) => {
-                res.redirect(`/page/${title}`)
-                // res.writeHead(302, {Location: `/page/${title}`})
-                // res.end()
-            })
+    var post = req.body
+    var id = post.id
+    var title = post.title
+    var description = post.description
+    fs.rename(`./data/${id}`, `./data/${title}`, (err) => {
+        fs.writeFile(`./data/${title}`, description, 'utf8', (err) => {
+            res.redirect(`/page/${title}`)
         })
     })
 })
 
 app.post('/delete_process', (req, res) => {
-    var body = ''
-    req.on('data', (data) => {
-        body += data
-    })
-    req.on('end', () => {
-        var post = qs.parse(body)
-        var id = post.id
-        var filteredId = path.parse(id).base
-        fs.unlink(`./data/${filteredId}`, (err) => {
-            res.redirect('/')
-            // res.writeHead(302, {Location: '/'})
-            // res.end()
-        })
+    var post = req.body
+    var id = post.id
+    var filteredId = path.parse(id).base
+    fs.unlink(`./data/${filteredId}`, (err) => {
+        res.redirect('/')
     })
 })
 
