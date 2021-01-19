@@ -1,6 +1,5 @@
 var http = require('http');
 var url = require('url');
-var path = require('path');
 var topic = require('./lib/topic');
 var author = require('./lib/author');
 
