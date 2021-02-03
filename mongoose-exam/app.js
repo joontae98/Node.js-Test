@@ -2,8 +2,9 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-
 var db = mongoose.Connection;
+
+// db DataBase 이름
 mongoose.connect('mongodb://localhost/mongo',{useNewUrlParser: true, useUnifiedTopology: true});
 var Book = require('./models/book');
 

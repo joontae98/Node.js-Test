@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 var bookSchema  = new Schema({
     title: String,
     content: String,
-    published_date: {type: Date, default: Date.now}
+    create_date: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('book',bookSchema);

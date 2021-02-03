@@ -1,4 +1,5 @@
-var path = require('path')
+// pretty URL 사용
+
 // express = app
 module.exports = (app, Book) => {
     // GET ALL BOOKS
@@ -18,9 +19,9 @@ module.exports = (app, Book) => {
         })
     });
 
-    // GET BOOK BY AUTHOR
+    // GET BOOK BY CONTENT
     app.get('/api/books/content/:content', (req, res) => {
-        Book.find({content: req.params.content}, {_id: 0, title: 1, published_date: 1}, (err, books) => {
+        Book.find({content: req.params.content}, {_id: 0, title: 1, create_date: 1}, (err, books) => {
             if (err) return res.status(500).json({error: err});
             if (books.length === 0) return res.status(404).json({error: 'book not found'});
             res.json(books);
@@ -32,7 +33,7 @@ module.exports = (app, Book) => {
         var book = new Book();
         book.title = req.body.name;
         book.content = req.body.content;
-        book.published_date = new Date();
+        book.create_date = new Date();
 
         book.save((err) => {
             if (err) {
@@ -53,7 +54,7 @@ module.exports = (app, Book) => {
 
             if (req.body.title) book.title = req.body.title;
             if (req.body.content) book.content = req.body.content;
-            if (req.body.published_date) book.published_date = req.body.published_date;
+            if (req.body.create_date) book.create_date = req.body.create_date;
 
             book.save((err) => {
                 if (err) res.status(500).json({error: 'failed to update'});
