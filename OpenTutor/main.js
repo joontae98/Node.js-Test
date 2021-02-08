@@ -1,6 +1,6 @@
 var express = require('express')
 var app = express()
-var port = 3000
+var port = 4000
 var fs = require('fs')
 var path = require('path')
 var template = require('./lib/template')
