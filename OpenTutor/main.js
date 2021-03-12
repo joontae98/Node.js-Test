@@ -131,6 +131,14 @@ app.post('/delete_process', (req, res) => {
         res.redirect('/')
     })
 })
+// img url code
+app.get('/:img', (req, res) => {
+    var img = req.params.img
+    fs.readFile(`./imgs/${img}`, (err,data) => {
+        res.end(data)
+    })
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
