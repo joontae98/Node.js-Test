@@ -7,6 +7,7 @@ var template = require('./lib/template')
 var qs = require('querystring')
 var sanitizeHtml = require('sanitize-html')
 var bodyParser = require('body-parser')
+var multer = require('multer')
 
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -137,6 +138,25 @@ app.get('/:img', (req, res) => {
     fs.readFile(`./imgs/${img}`, (err,data) => {
         res.end(data)
     })
+})
+// multer code image create
+var upload = multer({
+    storage: multer.diskStorage({
+        destination:(req,file,cb)=>{
+            cb(null, 'imgs/');
+        },
+        filename:(req,file,cb)=>{
+            cb(null,`img04.jpg`);
+        }
+    })
+});
+
+app.post('/img_create',upload.single('file'), (req,res) => {
+    console.log(req.file);
+    res.send(JSON.stringify(
+        { result : "success" }
+    ));
+
 })
 
 
