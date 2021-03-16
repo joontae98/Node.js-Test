@@ -146,19 +146,25 @@ var upload = multer({
             cb(null, 'imgs/');
         },
         filename:(req,file,cb)=>{
-            cb(null,`img04.jpg`);
+            cb(null,`img05.jpg`);
         }
     })
 });
 
-app.post('/img_create',upload.single('file'), (req,res) => {
+app.post('/img_create',upload.single('image'), (req,res) => {
     console.log(req.file);
     res.send(JSON.stringify(
         { result : "success" }
     ));
-
 })
 
+// file delete code
+app.post('/img_delete/:img',(req, res) => {
+    var img = req.params.img
+    fs.unlink(`./imgs/${img}`, (err) => {
+        res.send(JSON.stringify({result: "success"}));
+    });
+});
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
